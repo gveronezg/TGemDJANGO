@@ -98,4 +98,68 @@
         {% endblock %}
     assim você esta extendendo os codigos do arquivo base e podendo adicionar codigos personalizandos dentro dos blocos atuais.
 
-17º 
+17º agora sobre o CSS:
+    va na linha 120 de settings.py e subistitua a linha:
+        STATIC_URL = 'static/'
+    por:
+        STATIC_URL = '/static/'
+        STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
+        STATIC_ROOT = os.path.join('static')
+
+        MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+        MEDIA_URL = '/media/'
+    após isso, vá na pasta templates da raiz e crie uma sub pasta chamada static!
+    dentro dela crie outras 5 pastas reproduzindo esta estrutura de organização:
+    .static
+        .geral
+            .css
+            .img
+            .js
+        .usuarios
+    
+18º dentro da pasta css, crie o arquivo base.css e cole este exemplar:
+    :root{
+        --main-color: #0b1526;
+        --dark-color: #000716;
+        --secondary-dark-color: rgb(15, 2, 26);
+        --light-color: #00c1f3;
+        --contrast-color: #f4c96b;
+        --differential-color: #58fcd5;
+    }
+    body{
+        background-color: var(--dark-color) !important;
+        color: white !important;
+    }
+
+19º Volte no arquivo base.html e adicione 2 novas linhas:
+    linha 1:
+        {% load static %}
+    linha 8:
+        <link rel="stylesheet" href="{% static 'geral/css/base.css' %}">
+    assim sua pagina html, vai estar linkada e carregando seu arquivo de base css!
+
+20º Agora vamos trabalhar o css individual de cada página:
+    dentro de templates/static/usuarios:
+        crie 2 novas pastas:
+            css
+                dentro desta pasta crie o arquivo:
+                    cadastro.css
+            img
+        
+21º voltando no arquivo cadastro.html, vamos fazer as seguintes modificações antes do bloco conteudo:
+    {% extends 'base.html' %}
+    {% load static %}
+
+    {% block 'cabecalho' %}
+        <link rel="stylesheet" href="{% static 'usuarios/css/cadastro.css'%}">
+    {% endblock %}
+
+    {% block 'conteudo' %}
+
+22º agora é hora de importar algumas imagens:
+    então copie os arquivos de logo e background e cole eles dentro da pasta templates/usuarios/img
+    nesse momento o background já será apresentado na página
+
+23º para apresentar a logo, volte no arquivo cadastro.html e digite o src de img:
+    linha 15:
+        <img src="{% static 'usuarios/img/myPet.png' %}">
