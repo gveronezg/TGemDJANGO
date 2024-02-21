@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'cabecalho' %}
+    <link rel="stylesheet" href="{% static 'home/css/home.css'%}">
+{% endblock %}
+
+{% block 'conteudo' %}
+    <div class="container">
+        <div class="logo">
+            <figure>
+                <img id="myPet" src="./uploads/myPet.png" height="100" width="250">
+            </figure>
+        </div>
+
+        <h2>Feito para quem ama os animais</h2>
+
+        <form action="/verificar_celular" method="post" id="celularForm">
+            <label for="celular">Celular: </label>
+            <input type="celular" id="celular" name="celular" placeholder="Digite aqui o seu celular" required autofocus oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+        </form><br>
+
+        <button id="entrar">Entrar</button>
+
+        <script>
+            entrar.addEventListener('click', () => {
+                if (celular.value !== '') {
+                    submitForm()
+                } else {
+                    alert("Por favor, digite o seu numero de celular antes de entrar.")
+                }
+            })
+            function submitForm() {
+                document.getElementById("celularForm").submit()
+            }
+        </script>
+    </body>
+</html>
+{% endblock 'conteudo' %}

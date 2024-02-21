@@ -1,4 +1,7 @@
 :root{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
     --main-color: #0b1526;
     --dark-color: #000716;
     --secondary-dark-color: rgb(15, 2, 26);
@@ -7,6 +10,10 @@
     --differential-color: #58fcd5;
 }
 body{
-    background-color: var(--dark-color) !important;
-    color: white !important;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0c0ce94d;
 }
