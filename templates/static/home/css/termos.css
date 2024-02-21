@@ -1,0 +1,23 @@
+.texto{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}
+.check-container{
+    display: flex;
+}
+.checkbox{
+    height: 50px;
+    width: 50px;
+    transform: scale(1);
+    margin-right: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+.botoes-container {
+    display: flex;
+    justify-content: center;
+}
+.botao {
+    margin: 10px;
+}
