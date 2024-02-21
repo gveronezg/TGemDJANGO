@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'cabecalho' %}
+    <link rel="stylesheet" href="{% static 'usuarios/css/cadastrar.css'%}">
+{% endblock %}
+{% block 'conteudo' %}
+    <div class="container">
+        <h3>Usuario: {{usuario}}</h3>
+        <br>
+        <h2 class='texto'>Entre duas vezes com a sua senha para registra-la!</h2>
+        <br>
+        <br>
+        <form class="texto" action="{% url 'entrar' %}" method="POST">{% csrf_token %}
+            <input class="texto" type="login" name="login" id="" placeholder="Sua nova senha!" required autofocus>
+            <br><br>
+            <input class="texto" type="login" name="login" id="" placeholder="Repita sua nova senha!" required>
+            <br><br>
+            <input class="botao" type="submit" value="Registrar">
+        </form>
+    </div>
+{% endblock 'conteudo' %}

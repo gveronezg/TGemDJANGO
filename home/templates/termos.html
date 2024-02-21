@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'cabecalho' %}
+    <link rel="stylesheet" href="{% static 'home/css/home.css'%}">
+{% endblock %}
+{% block 'conteudo' %}
+    <div class="container">
+        <h3>Usuario: {{usuario}}</h3>
+        <h2 class='texto'>Para prosseguir com o cadastro na plataforma<br>
+            É preciso que você leia os termos de uso com atenção<br>
+            Se concordar marque o checkbox e prossiga</h2>
+        <br>
+        <br>
+        <p class='titulo'>Termos de uso: <a href="https://policies.tinder.com/terms/intl/pt/?lang=pt" target="_blank">Abrir os termos</a></p>
+        <br><br><br><br>
+        <form class="texto" action="{% url 'concordar' %}" method="POST">{% csrf_token %}
+            <label><input type="checkbox" name="checkTermos" id=""> Concordo com os termos!</label>
+            <br><br>
+            <button class="botao" type="button" onclick="goHome()">Voltar</button>
+            <input class="botao" type="submit" value="Prosseguir"></button>
+            <br><br>
+        </form>
+        <script>
+            function goHome() {
+                window.location.href = '{% url "home" %}'
+            }
+        </script>
+    </div>
+{% endblock 'conteudo' %}

@@ -8,30 +8,25 @@ def home(request):
 
 def entrar(request):
     if request.method == "GET":
-        return redirect('home.html')
+        return render(request, 'home.html')
     if request.method == "POST":
-        celular = request.POST.get('celular')
-
-        # Verificar se o número de celular está presente no banco de dados
-        user = User.objects.filter(id=celular)
-
-        if user.exists():
-            # Se o usuário existe, redirecione para a página de login com senha
-            return redirect('/usuarios/logar/')
-
+        login = request.POST.get('login')
+        usuario = User.objects.filter(username=login)
+        if usuario.exists():
+            return render(request, 'logar.html')
         else:
-            # Se o usuário não existe, redirecione para a página de login com SMS
-            # Aqui você pode adicionar a lógica para enviar o código SMS
-            # e lidar com a autenticação via SMS
-            # Exemplo:
-            # - Gerar código SMS
-            # - Enviar código SMS para o número de celular
-            # - Armazenar temporariamente o código no servidor ou no banco de dados
-            # - Redirecionar para a página de login com código SMS
+            return render(request, 'termos.html', {'usuario': login})
 
-            # Exemplo de como adicionar uma mensagem para informar que um código SMS foi enviado
-            add_message(request, constants.SUCCESS, 'Código SMS enviado para o número de celular.')
-            return redirect('/usuarios/login_sms/')  # Substitua pelo caminho real da página de login com código SMS
+def termos(request):
+    return render(request, 'termos.html')
 
-    # Se a requisição não for do tipo POST, renderize a página padrão
-    return render(request, 'entrar.html')
+def concordar(request):
+    login = request.POST.get('usuario')
+    if request.method == "GET":
+        return render(request, 'termos.html')
+    if request.method == "POST":
+        de_acordo = request.POST.get('checkTermos')
+        if de_acordo:
+            return render(request, 'cadastrar.html', {'usuario': login})
+        else:
+            return render(request, 'termos.html')
