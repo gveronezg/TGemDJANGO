@@ -10,10 +10,10 @@
         <h2 class='texto'>Entre duas vezes com a sua senha para registra-la!</h2>
         <br>
         <br>
-        <form class="texto" action="{% url 'entrar' %}" method="POST">{% csrf_token %}
-            <input class="texto" type="login" name="login" id="" placeholder="Sua nova senha!" required autofocus>
+        <form class="texto" action="{% url 'realizar_login' %}" method="POST">{% csrf_token %}
+            <input class="texto" type="password" name="senha" id="" placeholder="Sua nova senha!" required autofocus>
             <br><br>
-            <input class="texto" type="login" name="login" id="" placeholder="Repita sua nova senha!" required>
+            <input class="texto" type="password" name="confirmar_senha" id="" placeholder="Repita sua nova senha!" required>
             <br><br>
             <input class="botao" type="submit" value="Registrar">
         </form>

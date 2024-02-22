@@ -3,37 +3,44 @@
 {% block 'cabecalho' %}
     <link rel="stylesheet" href="{% static 'home/css/termos.css'%}">
 {% endblock %}
+
 {% block 'conteudo' %}
     <div class="container">
-        <h3 class="titulo">Usuário: {{usuario}}</h3>
+        <h3 class="titulo">Bem vindo(a): {{usuario}}</h3>
         <br>
-        <h2 class='texto'>Para prosseguir com o cadastro na plataforma<br>
-            É preciso que você leia os termos de uso com atenção<br>
-            Se concordar marque o checkbox e prossiga</h2>
+
+        <h2 class='texto'>Para prosseguir com o seu cadastro na plataforma<br>
+            É preciso que leia os termos de uso com atenção<br>
+            Caso concorde, marque o checkbox e click em concordei</h2>
         <br>
         <br>
-        <p class='texto'>Termos de uso: <a href="https://policies.tinder.com/safety-and-policy/intl/pt/?lang=pt" target="_blank">Abrir os termos</a></p>
+
+        <p class='texto'>Termos de uso: <a href="https://policies.tinder.com/safety-and-policy/intl/pt/?lang=pt" target="_blank">Ler os termos</a></p>
         <br><br>
-        <form class="titulo" action="{% url 'concordar' %}" method="POST">{% csrf_token %}
+
+        <form class="titulo" action="{% url 'checar_termos' %}" method="POST">{% csrf_token %}
+            <input type="hidden" name="usuario" value="{{usuario}}">
             <div class="check-container">
                 <div>
-                    <input class="checkbox" type="checkbox" name="checkTermos" id="">
+                    <label>Eu li os termos!</label>
                 </div>
                 <div>
-                    <label>Concordo com os termos!</label>
+                    <input class="checkbox" type="checkbox" name="checkTermos" id="">
                 </div>
             </div>
             <br>
             <div class="botoes-container">
                 <button class="botao" type="button" onclick="goHome()">Voltar</button>
-                <input class="botao" type="submit" value="Prosseguir">
+                <input class="botao" type="submit" value="Concordei">
             </div>
             <br><br>
         </form>
+
         <script>
             function goHome() {
                 window.location.href = '{% url "home" %}'
             }
         </script>
+        
     </div>
 {% endblock 'conteudo' %}

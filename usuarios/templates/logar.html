@@ -9,9 +9,9 @@
             <img src="{% static 'home/img/myPet.png' %}" class="logo">
         </figure>
         <br>
-        <h1 class="titulo">Bem vindo(a): </h1>
+        <h1 class="titulo">Bem vindo(a): {{usuario}}</h1>
         <br><br><br><br>
-        <form class="texto" action="{% url 'entrar' %}" method="POST">{% csrf_token %}
+        <form class="texto" action="" method="POST">{% csrf_token %}
             <input class="texto" type="login" name="login" id="" placeholder="Entre com o seu login" required autofocus>
             <br><br>
             <input class="botao" type="submit" value="Entrar">
