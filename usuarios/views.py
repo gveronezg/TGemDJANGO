@@ -11,7 +11,7 @@ def cadastrar(request):
 def logar(request):
     return render(request, 'logar.html')
 
-def realizando_login(request):
+def realizando_cadastro(request):
     if request.method == "GET":
         return render(request, 'cadastrar.html')
     if request.method == "POST":
@@ -19,22 +19,22 @@ def realizando_login(request):
         senha = request.POST.get('senha')
         confirmar_senha = request.POST.get('confirmar_senha')
 
+        # TODO: deixar este aviso bonitinho
         if not senha == confirmar_senha:
             messages.add_message(request, constants.ERROR, 'Senhas divergentes!')
-            return redirect('cadastrar.html', {'usuario': login})
-        
+            return render(request, 'cadastrar.html', {'usuario': login})
+        '''
         usuario = User.objects.filter(username=login)
-
         if usuario.exists():
             messages.add_message(request, constants.ERROR, 'Usuário já cadastrado!')
             return redirect('cadastrar.html', {'usuario': login})
-
+        '''
         try:
             User.objects.create_user(
                 username=login,
                 password=senha
             )
-            return redirect('/usuarios/logar', {'usuario': login})
+            return render(request, 'home.html')
         except:
             messages.add_message(request, constants.ERROR, 'Erro interno do Servidor!')
-            return redirect('/usuarios/cadastrar', {'usuario': login})
+            return render(request, 'cadastrar.html', {'usuario': login})

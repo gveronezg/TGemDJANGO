@@ -22,25 +22,27 @@
             <input type="hidden" name="usuario" value="{{usuario}}">
             <div class="check-container">
                 <div>
-                    <label>Eu li os termos!</label>
+                    <label>Eu li e chequei os termos!</label>
                 </div>
                 <div>
                     <input class="checkbox" type="checkbox" name="checkTermos" id="">
                 </div>
             </div>
-            <br>
+            <br>           
             <div class="botoes-container">
-                <button class="botao" type="button" onclick="goHome()">Voltar</button>
+                <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Voltar">
                 <input class="botao" type="submit" value="Concordei">
             </div>
             <br><br>
         </form>
 
-        <script>
-            function goHome() {
-                window.location.href = '{% url "home" %}'
-            }
-        </script>
+        {% if messages %}
+            {% for message in messages %}
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+        {% endif %}
         
     </div>
 {% endblock 'conteudo' %}

@@ -1,0 +1,13 @@
+.texto{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}
+.botoes-container {
+    display: flex;
+    justify-content: center;
+}
+.botao {
+    margin: 10px;
+}
