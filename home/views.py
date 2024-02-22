@@ -6,7 +6,7 @@ from django.contrib.messages import constants, add_message
 def home(request):
     return render(request, 'home.html')
 
-def entrar(request):
+def validando_login(request):
     if request.method == "GET":
         return render(request, 'home.html')
     if request.method == "POST":
