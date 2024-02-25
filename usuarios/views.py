@@ -5,10 +5,12 @@ from django.contrib.messages import constants
 from django.contrib import messages
 from django.contrib import auth
 
+import re
+
 def cadastrar(request):
     return render(request, 'cadastrar.html')
 
-def logar(request):
+def entrar(request):
     return render(request, 'logar.html')
 
 def realizando_cadastro(request):
@@ -29,6 +31,11 @@ def realizando_cadastro(request):
             messages.add_message(request, constants.ERROR, 'Usuário já cadastrado!')
             return redirect('cadastrar.html', {'usuario': login})
         '''
+        # TODO: deixar este aviso bonitinho
+        # TODO: aumentar a validação da senha
+        if not senha or not re.match("^[a-zA-Z0-9_]+$", senha):
+            messages.add_message(request, constants.ERROR, 'Senha inválida. Use apenas letras, números e underscores.')
+            return render(request, 'cadastrar.html', {'usuario': login})
         try:
             User.objects.create_user(
                 username=login,
@@ -38,3 +45,24 @@ def realizando_cadastro(request):
         except:
             messages.add_message(request, constants.ERROR, 'Erro interno do Servidor!')
             return render(request, 'cadastrar.html', {'usuario': login})
+        
+def logar(request):
+    if request.method == "GET":
+        return render(request, 'logar.html')
+    if request.method == "POST":
+        login = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+
+        usuario = auth.authenticate(request, username=login, password=senha)
+
+        if usuario:
+            auth.login(request, usuario)
+            messages.add_message(request, constants.SUCCESS, 'Logado!')
+            return redirect('/feed/')
+        else:
+            messages.add_message(request, constants.ERROR, 'Username ou senha inválidos!')
+            return render(request, 'logar.html', {'usuario': login})
+
+def logout(request):
+    auth.logout(request)
+    return render(request, 'home.html')

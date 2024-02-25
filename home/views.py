@@ -25,7 +25,7 @@ def validando_login(request):
     if request.method == "POST":
         usuario = User.objects.filter(username=login)
         if usuario.exists():
-            return render(request, 'logar.html')
+            return render(request, 'logar.html', {'usuario': login})
         else:
             return render(request, 'termos.html', {'usuario': login})
 

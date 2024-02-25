@@ -10,12 +10,17 @@
             <img src="{% static 'home/img/myPet.png' %}" class="logo">
         </figure>
         <br>
-        <h1 class="titulo">Bem vindo(a): {{usuario}}</h1>
+
+        <h1 class="titulo">A plataforma do seu pet</h1>
+        <h1 class="titulo">espera por você {{usuario}}</h1>
         <br><br><br><br>
-        <form class="texto" action="" method="POST">{% csrf_token %}
-            <input class="texto" type="login" name="login" id="" placeholder="Entre com o seu login" required autofocus>
+
+        <form class="texto" action="{% url 'verificar_senha' %}" method="POST">{% csrf_token %}
+            <input type="hidden" name="usuario" value="{{usuario}}">
+            <input class="texto" type="password" name="senha" id="" placeholder="Entre com a sua senha" required autofocus>
             <br><br>
             <input class="botao" type="submit" value="Entrar">
         </form>
+        
     </div>
 {% endblock 'conteudo' %}
