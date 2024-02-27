@@ -35,9 +35,20 @@
             <br><br>
 
             <div>
-                <label></label>
-                <select class="" name="">
-                    <option value=""></option>
+                <label for="estado">Estado</label>
+                <select class="" name="estado" id="estadoSelect">
+                    {% for estado in estados %}
+                        <option value="{{estado.id}}">{{estado}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div>
+                <label for="municipio">Municipio</label>
+                <select class="" name="municipio" id="municipioSelect">
+                    {% for municipio in municipios %}
+                        <option value="{{municipio.id}}">{{municipio}}</option>
+                    {% endfor %}
                 </select>
             </div>
 
@@ -48,4 +59,5 @@
 
         </form>
     </div>
+    <script src="{% static 'perfil/js/tutor.js' %}"></script>
 {% endblock 'conteudo' %}
