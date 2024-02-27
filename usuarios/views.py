@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages import constants
 from django.contrib import messages
 from django.contrib import auth
-from perfil.models import Tutor
+# from perfil.models import Tutor
 
 import re
 
@@ -61,7 +61,8 @@ def logar(request):
             primeiro_acesso = usuario.last_login
             if primeiro_acesso is None:
                 auth.login(request, usuario)
-                return render(request, 'tutor.html', {'usuario': login})
+                messages.success(request, 'Usuário registrado com sucesso!')
+                return redirect('/perfil/tutor/', usuario=login)
             else:
                 auth.login(request, usuario)
                 return render(request, 'tutor.html', {'usuario': login})

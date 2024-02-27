@@ -7,4 +7,7 @@ urlpatterns = [
     path('realizando_cadastro/', views.realizando_cadastro, name="realizar_cadastro"),
     path('logar/', views.logar, name="verificar_senha"),
     path('logout/', views.logout, name="logout"),
+
+    # Adicione a seguinte linha para a visualização do perfil do tutor
+    path('perfil/tutor/<str:usuario>/', views.perfil_tutor, name='perfil_tutor'),
 ]

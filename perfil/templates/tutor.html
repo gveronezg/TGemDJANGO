@@ -7,12 +7,12 @@
 
 {% block 'conteudo' %}
     <div class="container">
-        <h3 class="titulo">Seja muito bem vindo(a): {{usuario}}</h3>
+        <h3 class="titulo">Perfil de Tutor(a)</h3>
+        <h3 class="titulo">by: {{usuario}}</h3>
         <br><br>
 
         <h2 class='texto'>Para que você tenha a melhor experiência possivel<br>
             Mantenha sempre seus dados atualizados</h2>
-        <br>
         <br>
 
         {% if messages %}
@@ -22,6 +22,7 @@
                 </section>
             {% endfor %}
         {% endif %}
+        <br>
 
         <form class="texto" action="{% url 'cadastrar_tutor' %}" method="POST">{% csrf_token %}
             <input type="hidden" name="usuario" value="{{usuario}}">
@@ -31,7 +32,7 @@
             <br><br>
 
             <h2 class='texto'>Celular WhatsApp</h2>
-            <input class="texto" type="tel" name="celular" id="" placeholder="DDD + 12345 - 6789" maxlength="12" pattern="[0-9]{1,12}" required>
+            <input class="texto" type="tel" name="celular" id="" placeholder="DDD + 12345 - 6789" maxlength="11" pattern="[0-9]{1,11}" required>
             <br><br>
 
             <div>
@@ -41,7 +42,7 @@
                         <option value="{{estado.id}}">{{estado}}</option>
                     {% endfor %}
                 </select>
-            </div>
+            </div><br>
             
             <div>
                 <label for="municipio">Municipio</label>
@@ -50,7 +51,7 @@
                         <option value="{{municipio.id}}">{{municipio}}</option>
                     {% endfor %}
                 </select>
-            </div>
+            </div><br>
 
             <div class="botoes-container">
                 <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Cancelar">
