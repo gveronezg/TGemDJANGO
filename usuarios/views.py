@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages import constants
 from django.contrib import messages
 from django.contrib import auth
+from perfil.models import Tutor
 
 import re
 
@@ -56,13 +57,14 @@ def logar(request):
         usuario = auth.authenticate(request, username=login, password=senha)
 
         if usuario:
+            # TODO: fazer uma rota que verifique se todos os dados foram 100% preenchidos
             primeiro_acesso = usuario.last_login
             if primeiro_acesso is None:
                 auth.login(request, usuario)
                 return render(request, 'tutor.html', {'usuario': login})
             else:
                 auth.login(request, usuario)
-                return render(request, 'feed.html', {'usuario': login})
+                return render(request, 'tutor.html', {'usuario': login})
         else:
             messages.add_message(request, constants.ERROR, 'Username ou senha inválidos!')
             return render(request, 'logar.html', {'usuario': login})
