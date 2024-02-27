@@ -15,6 +15,14 @@
         <h1 class="titulo">espera por você {{usuario}}</h1>
         <br><br><br><br>
 
+        {% if messages %}
+            {% for message in messages %}
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+        {% endif %}
+
         <form class="texto" action="{% url 'verificar_senha' %}" method="POST">{% csrf_token %}
             <input type="hidden" name="usuario" value="{{usuario}}">
             <input class="texto" type="password" name="senha" id="" placeholder="Entre com a sua senha" required autofocus>

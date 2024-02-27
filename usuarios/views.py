@@ -56,9 +56,13 @@ def logar(request):
         usuario = auth.authenticate(request, username=login, password=senha)
 
         if usuario:
-            auth.login(request, usuario)
-            messages.add_message(request, constants.SUCCESS, 'Logado!')
-            return redirect('/feed/')
+            primeiro_acesso = usuario.last_login
+            if primeiro_acesso is None:
+                auth.login(request, usuario)
+                return render(request, 'tutor.html', {'usuario': login})
+            else:
+                auth.login(request, usuario)
+                return render(request, 'feed.html', {'usuario': login})
         else:
             messages.add_message(request, constants.ERROR, 'Username ou senha inválidos!')
             return render(request, 'logar.html', {'usuario': login})
