@@ -4,24 +4,20 @@
     <link rel="stylesheet" href="{% static 'home/css/home.css'%}">
 {% endblock %}
 {% block 'conteudo' %}
-    <div class="container">
-        <figure>
-            <img src="{% static 'home/img/myPet.png' %}" class="logo">
-        </figure>
-        <br>
-        <h1 class="titulo">Feito para quem ama os animais</h1>
-        <br><br><br><br>
-        {% if messages %}
-            {% for message in messages %}
-                <section class="alert {{message.tags}}">
-                    {{message}}
-                </section>
-            {% endfor %}
-        {% endif %}
-        <form class="texto" action="{% url 'validar_login' %}" method="POST">{% csrf_token %}
-            <input class="texto" type="login" name="login" id="" placeholder="Entre com o seu login" required autofocus>
-            <br><br>
-            <input class="botao" type="submit" value="Entrar">
-        </form>
-    </div>
+    <body class="body">
+        <div class="container">
+            <h1 class="slogan">Feito para quem ama os animais</h1>
+            {% if messages %}
+                {% for message in messages %}
+                    <section class="alert {{message.tags}}">
+                        {{message}}
+                    </section>
+                {% endfor %}
+            {% endif %}
+            <form class="texto" action="{% url 'validar_login' %}" method="POST">{% csrf_token %}
+                <input class="texto" type="login" name="login" id="" placeholder="Entre com o seu login" required autofocus>
+                <input class="botao" type="submit" value="Entrar">
+            </form>
+        </div>
+    </body>
 {% endblock 'conteudo' %}

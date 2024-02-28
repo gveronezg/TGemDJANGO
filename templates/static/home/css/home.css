@@ -1,31 +1,32 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.body{
+    background-color: #00a8f3; /* Define a cor de fundo do body */
+    background-image: url("/static/home/img/background.png");
+    background-repeat: no-repeat; /* Define que a imagem de fundo será exibida apenas uma vez. */
+    background-position: center center; /* A imagem de fundo será centralizada horizontal e verticalmente */
+    background-size: contain; /* Escala a imagem de fundo para caber no container, mantendo a proporção */
+    background-attachment: fixed; /* Fixa a imagem de fundo na tela, independentemente do scroll */
+    display: flex; /* Define que os itens sejam centralizados horizontal e verticalmente */
+    justify-content: center; /* Alinha os itens no centro horizontalmente */
+    align-items: center; /* Alinha os itens no centro verticalmente */
 }
-.logo{
-    height: 200px;
-    width: 500px;
+.container {
+    width: 100%; /* Define a largura do container como 100% da tela */
+    height: 100%; /* Define a altura do container como 100% da tela */
+    display: flex;  /* Define o container como um container flex */
+    flex-direction: column; /* Define o container como um container flex com direção coluna */
+    align-items: center; /* Alinha os itens no centro horizontalmente */
+    justify-content: flex-end; /* Alinha os elementos no final do container */
+    padding: 0 0px; /* Remove o padding esquerdo e direito do container */
+    margin-top: -70px; /* Adiciona um margin negativo no topo do container para mover para cima e centralizar verticalmente na tela */
 }
-.divisor{
-    border: 1px;
-    height: 1px;
-    color: black;
-    display: block;
-}
-.titulo{
-    font-family: 'Apple Chancery', cursive;
-    font-style: italic;
-    font-size: 35px;
-}
-.texto{
+.texto {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     font-weight: bold;
     font-size: 20px;
+    width: 300px;
 }
-.botao{
+.botao {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     font-weight: bold;
@@ -33,4 +34,5 @@
     border-radius: 10px;
     padding: 10px;
     border: 2px solid #000000;
+    margin-top: 20px;
 }
