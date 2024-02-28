@@ -9,7 +9,6 @@ import re
 def home(request):
     return render(request, 'home.html')
 
-
 def termos(request):
     return render(request, 'termos.html')
 
