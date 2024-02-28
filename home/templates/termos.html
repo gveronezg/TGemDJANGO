@@ -6,6 +6,9 @@
 {% block 'conteudo' %}
     <body class='body'>
         <div class="container">
+            <figure>
+                <img src="{% static 'geral/img/myPet.png' %}">
+            </figure>
             <h3 class="slogan">Bem vindo(a): {{usuario}}</h3>
             <h2 class='texto'>Para prosseguir com o seu cadastro na plataforma<br>
                 É preciso que leia os termos de uso com atenção<br>
@@ -25,7 +28,6 @@
                     <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Voltar">
                     <input class="botao" type="submit" value="Concordei">
                 </div>
-                <br><br>
             </form>
             {% if messages %}
                 {% for message in messages %}
