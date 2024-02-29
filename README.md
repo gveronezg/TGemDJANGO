@@ -14,3 +14,5 @@ aula 2
 melhorei a home e o termos, não compensa trocar de render para redirect pra não expor dados
 talvez mexer nas urls, mas isso não pode tomar tanto tempo assim
 melhor caminhar até o feed e deixar a fatoração para depois
+
+git ignore atualizado nas duas maquinas
