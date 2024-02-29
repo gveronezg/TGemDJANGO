@@ -13,16 +13,13 @@ def termos(request):
     return render(request, 'termos.html')
 
 def validando_login(request):
-    login = request.POST.get('login')
-
-    # TODO: deixar este aviso bonitinho
-    if not login or not re.match("^[a-zA-Z0-9_]+$", login):
-        messages.add_message(request, constants.ERROR, 'Login inválido. Use apenas letras, números e underscores.')
-        return render(request, 'home.html')
-    
     if request.method == "GET":
-        return render(request, 'home.html')
+        return redirect('/home/')
     if request.method == "POST":
+        login = request.POST.get('login')
+        if not login or not re.match("^[a-zA-Z0-9_]+$", login):
+            messages.add_message(request, constants.ERROR, 'Login inválido. Use apenas letras, números e underscores.')
+            return redirect('/home/')
         usuario = User.objects.filter(username=login)
         if usuario.exists():
             return render(request, 'logar.html', {'usuario': login})
@@ -38,6 +35,5 @@ def concordando(request):
         if de_acordo:
             return render(request, 'cadastrar.html', {'usuario': login})
         else:
-            # TODO: deixar este aviso bonitinho
             messages.add_message(request, constants.ERROR, 'Sem checar os termos é impossivel prosseguir.')
             return render(request, 'termos.html', {'usuario': login})

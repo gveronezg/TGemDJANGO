@@ -22,7 +22,6 @@ def realizando_cadastro(request):
         senha = request.POST.get('senha')
         confirmar_senha = request.POST.get('confirmar_senha')
 
-        # TODO: deixar este aviso bonitinho
         if not senha == confirmar_senha:
             messages.add_message(request, constants.ERROR, 'Senhas divergentes!')
             return render(request, 'cadastrar.html', {'usuario': login})
@@ -32,7 +31,6 @@ def realizando_cadastro(request):
             messages.add_message(request, constants.ERROR, 'Usuário já cadastrado!')
             return redirect('cadastrar.html', {'usuario': login})
         '''
-        # TODO: deixar este aviso bonitinho
         # TODO: aumentar a validação da senha
         if not senha or not re.match("^[a-zA-Z0-9_]+$", senha):
             messages.add_message(request, constants.ERROR, 'Senha inválida. Use apenas letras, números e underscores.')
