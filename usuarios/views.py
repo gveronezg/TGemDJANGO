@@ -25,13 +25,6 @@ def realizando_cadastro(request):
         if not senha == confirmar_senha:
             messages.add_message(request, constants.ERROR, 'Senhas divergentes!')
             return render(request, 'cadastrar.html', {'usuario': login})
-        '''
-        usuario = User.objects.filter(username=login)
-        if usuario.exists():
-            messages.add_message(request, constants.ERROR, 'Usuário já cadastrado!')
-            return redirect('cadastrar.html', {'usuario': login})
-        '''
-        # TODO: aumentar a validação da senha
         if not senha or not re.match("^[a-zA-Z0-9_]+$", senha):
             messages.add_message(request, constants.ERROR, 'Senha inválida. Use apenas letras, números e underscores.')
             return render(request, 'cadastrar.html', {'usuario': login})
@@ -55,7 +48,6 @@ def logar(request):
         usuario = auth.authenticate(request, username=login, password=senha)
 
         if usuario:
-            # TODO: fazer uma rota que verifique se todos os dados foram 100% preenchidos
             primeiro_acesso = usuario.last_login
             if primeiro_acesso is None:
                 auth.login(request, usuario)

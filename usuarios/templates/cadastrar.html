@@ -3,40 +3,33 @@
 {% block 'cabecalho' %}
     <link rel="stylesheet" href="{% static 'usuarios/css/cadastrar.css'%}">
 {% endblock %}
-
 {% block 'conteudo' %}
-    <div class="container">
-        <h3 class="titulo">Estamos quase lá: {{usuario}}</h3>
-        <br><br>
+    <body class='body'>
+        <div class="container">
 
-        <h2 class='texto'>Agora é preciso apenas criar sua senha de acesso a plataforma</h2>
-        <br>
-        <br>
-
-        {% if messages %}
-            {% for message in messages %}
-                <section class="alert {{message.tags}}">
-                    {{message}}
-                </section>
-            {% endfor %}
-        {% endif %}
-
-        <form class="texto" action="{% url 'realizar_cadastro' %}" method="POST">{% csrf_token %}
-            <input type="hidden" name="usuario" value="{{usuario}}">
-
-            <h2 class='texto'>Entre abaixo com sua nova senha</h2>
-            <input class="texto" type="password" name="senha" id="" placeholder="Sua nova senha!" required autofocus>
-            <br><br>
-
-            <h2 class='texto'>Agora repita sua nova senha abaixo</h2>
-            <input class="texto" type="password" name="confirmar_senha" id="" placeholder="Repita sua nova senha!" required>
-            <br><br>
-
-            <div class="botoes-container">
-                <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Cancelar">
-                <input class="botao" type="submit" value="Registrar">
-            </div>
-
-        </form>
-    </div>
+            <figure>
+                <img src="{% static 'geral/img/myPet.png' %}">
+            </figure>
+            <h3 class="slogan">Estamos quase lá: {{usuario}}</h3>
+            <h2 class='texto'>Agora é preciso apenas criar sua senha de acesso a plataforma</h2>
+            {% if messages %}
+                {% for message in messages %}
+                    <section class="alert {{message.tags}}">
+                        {{message}}
+                    </section>
+                {% endfor %}
+            {% endif %}
+            <form class="texto" action="{% url 'realizar_cadastro' %}" method="POST">{% csrf_token %}
+                <input type="hidden" name="usuario" value="{{usuario}}">
+                <h2 class='texto'>Entre abaixo com sua nova senha</h2>
+                <input class="texto" type="password" name="senha" id="senha" placeholder="Sua nova senha!" required autofocus>
+                <h2 class='texto'>Agora repita sua nova senha abaixo</h2>
+                <input class="texto" type="password" name="confirmar_senha" id="confirmar_senha" placeholder="Repita sua nova senha!" required>
+                <div class="botoes-container">
+                    <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Cancelar">
+                    <input class="botao" type="submit" value="Registrar">
+                </div>
+            </form>
+        </div>
+    </body>
 {% endblock 'conteudo' %}

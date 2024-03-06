@@ -1,6 +1,6 @@
 .body{
     background-color: #00a8f3; /* Define a cor de fundo do body */
-    background-image: url("/static/home/img/background.png");
+    background-image: url("/static/geral/img/background.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: contain; /* Make the background contain within the container */

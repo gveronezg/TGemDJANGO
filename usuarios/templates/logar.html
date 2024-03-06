@@ -3,33 +3,25 @@
 {% block 'cabecalho' %}
     <link rel="stylesheet" href="{% static 'usuarios/css/logar.css'%}">
 {% endblock %}
-
 {% block 'conteudo' %}
-    <div class="container">
-        <figure>
-            <img src="{% static 'home/img/myPet.png' %}" class="logo">
-        </figure>
-        <br>
+    <body class='body'>
+        <div class="container">
 
-        <h1 class="titulo">A plataforma do seu pet</h1>
-        <h1 class="titulo">espera por você {{usuario}}</h1>
-        <br><br><br><br>
-
-        {% if messages %}
-            {% for message in messages %}
-                <section class="alert {{message.tags}}">
-                    {{message}}
-                </section>
-            {% endfor %}
-        {% endif %}
-
-        <form class="texto" action="{% url 'verificar_senha' %}" method="POST">{% csrf_token %}
-            <input type="hidden" name="usuario" value="{{usuario}}">
-            <input class="texto" type="password" name="senha" id="" placeholder="Entre com a sua senha" required autofocus>
-            <br><br>
-            <input class="botao" type="submit" value="Entrar">
-        </form>
-        
-    </div>
-    <!-- <script src="{% static 'usuarios/js/logar.js' %}"></script> -->
+            <h1 class="slogan">A plataforma do seu pet espera por você {{usuario}}</h1>
+            {% if messages %}
+                {% for message in messages %}
+                    <section class="alert {{message.tags}}">
+                        {{message}}
+                    </section>
+                {% endfor %}
+            {% endif %}
+            <form class="input-group" action="{% url 'verificar_senha' %}" method="POST">{% csrf_token %}
+                <input type="hidden" name="usuario" value="{{usuario}}">
+                <input class="texto" type="password" name="senha" id="" placeholder="Entre com a sua senha" required autofocus>
+                <br><br>
+                <input class="botao" type="submit" value="Entrar">
+            </form>
+            
+        </div>
+    </body>
 {% endblock 'conteudo' %}
