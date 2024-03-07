@@ -6,59 +6,48 @@
 {% endblock %}
 
 {% block 'conteudo' %}
-    <div class="container">
-        <h3 class="titulo">Perfil de Tutor(a)</h3>
-        <h3 class="titulo">by: {{usuario}}</h3>
-        <br><br>
+    <body class='body'>
+        <div class="container">
 
-        <h2 class='texto'>Para que você tenha a melhor experiência possivel<br>
-            Mantenha sempre seus dados atualizados</h2>
-        <br>
-
-        {% if messages %}
-            {% for message in messages %}
-                <section class="alert {{message.tags}}">
-                    {{message}}
-                </section>
-            {% endfor %}
-        {% endif %}
-        <br>
-
-        <form class="texto" action="{% url 'cadastrar_tutor' %}" method="POST">{% csrf_token %}
-            <input type="hidden" name="usuario" value="{{usuario}}">
-
-            <h2 class='texto'>Nome do(a) Tutor(a)</h2>
-            <input class="texto" type="texto" name="tutor" id="" placeholder="Nome Completo" required autofocus>
-            <br><br>
-
-            <h2 class='texto'>Celular WhatsApp</h2>
-            <input class="texto" type="tel" name="celular" id="" placeholder="DDD + 12345 - 6789" maxlength="11" pattern="[0-9]{1,11}" required>
-            <br><br>
-
-            <div>
-                <label for="estado">Estado</label>
-                <select class="" name="estado" id="estadoSelect">
-                    {% for estado in estados %}
-                        <option value="{{estado.id}}">{{estado}}</option>
-                    {% endfor %}
-                </select>
-            </div><br>
-            
-            <div>
-                <label for="municipio">Municipio</label>
-                <select class="" name="municipio" id="municipioSelect">
-                    {% for municipio in municipios %}
-                        <option value="{{municipio.id}}">{{municipio}}</option>
-                    {% endfor %}
-                </select>
-            </div><br>
-
-            <div class="botoes-container">
-                <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Cancelar">
-                <input class="botao" type="submit" value="Registrar">
-            </div>
-
-        </form>
-    </div>
-    <script src="{% static 'perfil/js/tutor.js' %}"></script>
+            <h3 class="titulo">Perfil de Tutor(a)</h3>
+            <h3 class="slogan">{{usuario}}</h3>
+            <h2 class='texto'>Para que você tenha a melhor experiência possivel<br>
+                Mantenha sempre seus dados atualizados</h2>
+            {% if messages %}
+                {% for message in messages %}
+                    <section class="alert {{message.tags}}">
+                        {{message}}
+                    </section>
+                {% endfor %}
+            {% endif %}
+            <form class="texto" action="{% url 'cadastrar_tutor' %}" method="POST">{% csrf_token %}
+                <input type="hidden" name="usuario" value="{{usuario}}">
+                <h2 class='texto'>Nome do(a) Tutor(a)</h2>
+                <input class="texto" type="texto" name="tutor" id="" placeholder="Nome Completo" required autofocus>
+                <h2 class='texto'>Celular WhatsApp</h2>
+                <input class="texto" type="tel" name="celular" id="" placeholder="DDD + 12345 - 6789" maxlength="11" pattern="[0-9]{1,11}" required>
+                <div>
+                    <label for="estado">Estado</label>
+                    <select class="" name="estado" id="estadoSelect">
+                        {% for estado in estados %}
+                            <option value="{{estado.id}}">{{estado}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="municipio">Municipio</label>
+                    <select class="" name="municipio" id="municipioSelect">
+                        {% for municipio in municipios %}
+                            <option value="{{municipio.id}}">{{municipio}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="botoes-container">
+                    <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Cancelar">
+                    <input class="botao" type="submit" value="Registrar">
+                </div>
+            </form>
+        </div>
+        <script src="{% static 'perfil/js/tutor.js' %}"></script>
+    </body>
 {% endblock 'conteudo' %}
