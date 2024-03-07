@@ -18,8 +18,10 @@
             <form class="input-group" action="{% url 'verificar_senha' %}" method="POST">{% csrf_token %}
                 <input type="hidden" name="usuario" value="{{usuario}}">
                 <input class="texto" type="password" name="senha" id="" placeholder="Entre com a sua senha" required autofocus>
-                <br><br>
-                <input class="botao" type="submit" value="Entrar">
+                <div class="botoes-container">
+                    <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Retornar">
+                    <input class="botao" type="submit" value="Entrar">
+                </div>
             </form>
             
         </div>

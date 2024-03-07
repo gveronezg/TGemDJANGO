@@ -67,6 +67,12 @@
     margin-bottom: 10px;
 }
 
+.input-group .botoes-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .input-group .botao {
     /* Define a fonte do botão como "Montserrat", Arial, Helvetica, sans-serif, tamanho 18px, alinhamento centralizado, com padding de 10px em todas as direções */
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
