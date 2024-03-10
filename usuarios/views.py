@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages import constants
 from django.contrib import messages
 from django.contrib import auth
-# from perfil.models import Tutor
+from perfil.models import Tutor
 
 import re
 
@@ -23,6 +23,7 @@ def home(request):
             return render(request, 'logar.html', {'usuario': login})
         else:
             return render(request, 'termos.html', {'usuario': login})
+        
 def termos(request):
     if request.method == "GET":
         return redirect('/')
@@ -35,35 +36,6 @@ def termos(request):
             messages.add_message(request, constants.ERROR, 'Sem checar os termos é impossivel prosseguir.')
             return render(request, 'termos.html', {'usuario': login})
 
-def logar(request):
-    if request.method == "GET":
-        return redirect('/')
-    if request.method == "POST":
-        login = request.POST.get('usuario')
-        senha = request.POST.get('senha')
-        usuario = auth.authenticate(request, username=login, password=senha)
-        if usuario:
-            primeiro_acesso = usuario.last_login
-            if primeiro_acesso:
-                auth.login(request, usuario)
-                messages.success(request, 'Logado!')
-                return redirect('/perfil/tutor')
-            else:
-                auth.login(request, usuario)
-                messages.success(request, 'Usuário registrado com sucesso!')
-                return redirect('/perfil/tutor')
-        else:
-            messages.add_message(request, constants.ERROR, 'Senha inválida!')
-            return redirect('/')
-
-
-
-def cadastrar(request):
-    return render(request, 'cadastrar.html')
-
-def entrar(request):
-    return render(request, 'logar.html')
-
 def realizando_cadastro(request):
     if request.method == "GET":
         return render(request, 'cadastrar.html')
@@ -71,7 +43,6 @@ def realizando_cadastro(request):
         login = request.POST.get('usuario')
         senha = request.POST.get('senha')
         confirmar_senha = request.POST.get('confirmar_senha')
-
         if not senha == confirmar_senha:
             messages.add_message(request, constants.ERROR, 'Senhas divergentes!')
             return render(request, 'cadastrar.html', {'usuario': login})
@@ -83,10 +54,33 @@ def realizando_cadastro(request):
                 username=login,
                 password=senha
             )
-            return render(request, 'home.html')
+            return redirect('/')
         except:
-            messages.add_message(request, constants.ERROR, 'Erro interno do Servidor!')
+            messages.add_message(request, constants.ERROR, 'Erro interno do Servidor, tente novamente!')
             return render(request, 'cadastrar.html', {'usuario': login})
+
+def logar(request):
+    if request.method == "GET":
+        return redirect('/')
+    if request.method == "POST":
+        login = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+        usuario = auth.authenticate(request, username=login, password=senha)
+        if usuario:
+            auth.login(request, usuario)
+            messages.add_message(request, constants.SUCCESS, 'Bem Vindo!')
+            return redirect('/feed')
+        else:
+            messages.add_message(request, constants.ERROR, 'Senha inválida!')
+            return redirect('/')
+
+
+
+def cadastrar(request):
+    return render(request, 'cadastrar.html')
+
+def entrar(request):
+    return render(request, 'logar.html')
 
 def logout(request):
     auth.logout(request)

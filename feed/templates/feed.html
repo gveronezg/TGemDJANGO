@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'cabecalho' %}
+    <link rel="stylesheet" href="{% static 'perfil/css/tutor.css'%}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+{% endblock %}
+{% block 'conteudo' %}
+    <body class='body'>
+        <div class="container">
+            <h3 class="slogan">{{request.user}}</h3>
+            {% if messages %}
+                {% for message in messages %}
+                    <section class="alert {{message.tags}}">
+                        {{message}}
+                    </section>
+                {% endfor %}
+            {% endif %}
+            <h3 class="titulo">Feed</h3>
+        </div>
+    </body>
+{% endblock 'conteudo' %}

@@ -18,3 +18,18 @@ class Tutor(models.Model):
     
     def __str__(self):
         return self.tutor
+    
+class Pet(models.Model):
+    SEXO_CHOICES = (('F', 'Feminino'), ('M', 'Masculino'))
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # user é obrigatório e deleta dados relacionados
+    pet = models.CharField(max_length=100)
+    fotos = models.ImageField(upload_to='pet_photos/', null=True, blank=True)  # Altere 'pet_photos/' para o diretório desejado
+    raca = models.CharField(max_length=50)
+    dtVaci = models.DateField()
+    dtNasc = models.DateField()
+    sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
+    pedigree = models.BooleanField(default=False)  # Valor padrão adicionado
+    obs = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.pet
