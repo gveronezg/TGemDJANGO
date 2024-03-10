@@ -4,13 +4,11 @@
     <link rel="stylesheet" href="{% static 'perfil/css/tutor.css'%}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 {% endblock %}
-
 {% block 'conteudo' %}
     <body class='body'>
         <div class="container">
-
             <h3 class="titulo">Perfil de Tutor(a)</h3>
-            <h3 class="slogan">{{usuario}}</h3>
+            <h3 class="slogan">{{request.user}}</h3>
             <h2 class='texto'>Para que você tenha a melhor experiência possivel<br>
                 Mantenha sempre seus dados atualizados</h2>
             {% if messages %}
@@ -20,34 +18,19 @@
                     </section>
                 {% endfor %}
             {% endif %}
-            <form class="texto" action="{% url 'cadastrar_tutor' %}" method="POST">{% csrf_token %}
-                <input type="hidden" name="usuario" value="{{usuario}}">
-                <h2 class='texto'>Nome do(a) Tutor(a)</h2>
-                <input class="texto" type="texto" name="tutor" id="" placeholder="Nome Completo" required autofocus>
+            <form class="texto" action="{% url 'tutor' %}" method="POST">{% csrf_token %}
+                <h2 class='texto'>Nome Completo do(a) Tutor(a)</h2>
+                <input class="texto" type="texto" name="tutor" id="" placeholder="Nome Completo" value="{{ tutor.tutor }}" required autofocus>
                 <h2 class='texto'>Celular WhatsApp</h2>
-                <input class="texto" type="tel" name="celular" id="" placeholder="DDD + 12345 - 6789" maxlength="11" pattern="[0-9]{1,11}" required>
-                <div>
-                    <label for="estado">Estado</label>
-                    <select class="" name="estado" id="estadoSelect">
-                        {% for estado in estados %}
-                            <option value="{{estado.id}}">{{estado}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
-                    <label for="municipio">Municipio</label>
-                    <select class="" name="municipio" id="municipioSelect">
-                        {% for municipio in municipios %}
-                            <option value="{{municipio.id}}">{{municipio}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+                <input class="texto" type="tel" name="celular" id="" placeholder="(12)12345-1234" maxlength="11" pattern="[0-9]{1,11}" value="{{tutor.celular}}" required>
+                <h2 class='texto'>Cep</h2>
+                <input class="texto" type="tel" name="cep" id="" placeholder="12.123-123" maxlength="8" pattern="[0-9]{1,8}" value="{{tutor.cep}}" required>
+                <h2 class='texto'>{{endereco.bairro|safe}} - {{endereco.localidade|safe}} - {{endereco.uf|safe}}</h2>
                 <div class="botoes-container">
-                    <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Cancelar">
+                    <input class="botao" type="button" onclick="window.location.href = '{% url "logout" %}'" value="Sair">
                     <input class="botao" type="submit" value="Registrar">
                 </div>
             </form>
         </div>
-        <script src="{% static 'perfil/js/tutor.js' %}"></script>
     </body>
 {% endblock 'conteudo' %}

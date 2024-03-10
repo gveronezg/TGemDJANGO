@@ -1,28 +1,65 @@
 from django.shortcuts import render, redirect
-# from django.contrib.messages import constants, add_message
+from django.contrib.messages import constants
 from django.contrib import messages
 from .models import Tutor
+import requests
+
+def endereco(cep):
+    url = f'https://viacep.com.br/ws/{cep}/json/'
+    response = requests.get(url)
+    if not response.ok:
+        return None
+    data = response.json()
+    if 'erro' in data:
+        return False
+    endereco = {
+        'uf': data.get('uf'),
+        'localidade': data.get('localidade'),
+        'bairro': data.get('bairro')
+    }
+    return endereco
 
 def tutor(request):
-    if not request.user.is_authenticated: # verificando se o usuario esta logado ou não!
-        return redirect('/home/home')
+    if not request.user.is_authenticated:
+        return redirect('/')
     
     if request.method == "GET":
-        return render(request, 'tutor.html')
+        dados_tutor = Tutor.objects.filter(user=request.user).first()
+        if dados_tutor:
+            return render(request, 'tutor.html', {'tutor': dados_tutor, 'endereco': endereco(dados_tutor.cep)})
+        else:
+            return render(request, 'tutor.html', {'tutor': ('','','')})
+
     if request.method == "POST":
-        login, tutor, celular, estado, municipio = (
-            request.POST.get(key) for key in ['usuario', 'tutor', 'celular', 'estado', 'municipio']
+        tutor, celular, cep = (
+            request.POST.get(key) for key in ['tutor', 'celular', 'cep']
         )
+        if endereco(cep) == False or len(cep) < 8:
+            messages.error(request, 'Cep incorreto!')
+            return redirect('/perfil/tutor')
+        if len(celular) != 11:
+            messages.error(request, 'Celular incompleto!')
+            return redirect('/perfil/tutor')
         try:
-            Tutor.objects.create(
-                user=login,
-                tutor=tutor,
-                celular=celular,
-                estado=estado,
-                cidade=municipio
-            )
-            messages.success(request, 'Tutor registrado com sucesso.')
-            return redirect('perfil/pet/')
+            update = Tutor.objects.filter(user=request.user).first()
+            if not update:
+                Tutor.objects.create(
+                    user=request.user,
+                    tutor=tutor,
+                    celular=celular,
+                    cep=cep
+                )
+                messages.success(request, 'Tutor registrado com sucesso.')
+            else:
+                Tutor.objects.update(
+                    user=request.user,
+                    tutor=tutor,
+                    celular=celular,
+                    cep=cep
+                )
+                messages.success(request, 'Tutor atualizado com sucesso.')
+            return redirect('/perfil/tutor')
+            
         except Exception as e:
             messages.error(request, f'Erro ao registrar tutor: {str(e)}')
-            return render(request, 'tutor.html', {'usuario': login})
+            return redirect('/perfil/tutor')

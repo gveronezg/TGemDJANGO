@@ -8,6 +8,56 @@ from django.contrib import auth
 
 import re
 
+def home(request):
+    if request.method == "GET":
+        return render(request, 'home.html')
+    elif request.method == "POST":
+        login = request.POST.get('login')
+        if not login or not re.match("^[a-zA-Z0-9_]+$", login):
+            messages.add_message(
+                request, constants.ERROR, 'Login inválido. Use apenas letras, números e underscores.'
+            )
+            return redirect('/')
+        usuario = User.objects.filter(username=login)
+        if usuario.exists():
+            return render(request, 'logar.html', {'usuario': login})
+        else:
+            return render(request, 'termos.html', {'usuario': login})
+def termos(request):
+    if request.method == "GET":
+        return redirect('/')
+    elif request.method == "POST":
+        login = request.POST.get('usuario')
+        de_acordo = request.POST.get('checkTermos')
+        if de_acordo:
+            return render(request, 'cadastrar.html', {'usuario': login})
+        else:
+            messages.add_message(request, constants.ERROR, 'Sem checar os termos é impossivel prosseguir.')
+            return render(request, 'termos.html', {'usuario': login})
+
+def logar(request):
+    if request.method == "GET":
+        return redirect('/')
+    if request.method == "POST":
+        login = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+        usuario = auth.authenticate(request, username=login, password=senha)
+        if usuario:
+            primeiro_acesso = usuario.last_login
+            if primeiro_acesso:
+                auth.login(request, usuario)
+                messages.success(request, 'Logado!')
+                return redirect('/perfil/tutor')
+            else:
+                auth.login(request, usuario)
+                messages.success(request, 'Usuário registrado com sucesso!')
+                return redirect('/perfil/tutor')
+        else:
+            messages.add_message(request, constants.ERROR, 'Senha inválida!')
+            return redirect('/')
+
+
+
 def cadastrar(request):
     return render(request, 'cadastrar.html')
 
@@ -37,29 +87,7 @@ def realizando_cadastro(request):
         except:
             messages.add_message(request, constants.ERROR, 'Erro interno do Servidor!')
             return render(request, 'cadastrar.html', {'usuario': login})
-        
-def logar(request):
-    if request.method == "GET":
-        return render(request, 'logar.html')
-    if request.method == "POST":
-        login = request.POST.get('usuario')
-        senha = request.POST.get('senha')
-
-        usuario = auth.authenticate(request, username=login, password=senha)
-
-        if usuario:
-            primeiro_acesso = usuario.last_login
-            if primeiro_acesso is None:
-                auth.login(request, usuario)
-                messages.success(request, 'Usuário registrado com sucesso!')
-                return redirect('/perfil/tutor/', usuario=login)
-            else:
-                auth.login(request, usuario)
-                return render(request, 'tutor.html', {'usuario': login})
-        else:
-            messages.add_message(request, constants.ERROR, 'Username ou senha inválidos!')
-            return render(request, 'logar.html', {'usuario': login})
 
 def logout(request):
     auth.logout(request)
-    return render(request, 'home.html')
+    return redirect('/')

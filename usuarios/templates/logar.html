@@ -6,7 +6,6 @@
 {% block 'conteudo' %}
     <body class='body'>
         <div class="container">
-
             <h1 class="slogan">A plataforma do seu pet espera por você {{usuario}}</h1>
             {% if messages %}
                 {% for message in messages %}
@@ -15,15 +14,14 @@
                     </section>
                 {% endfor %}
             {% endif %}
-            <form class="input-group" action="{% url 'verificar_senha' %}" method="POST">{% csrf_token %}
+            <form class="input-group" action="{% url 'logar' %}" method="POST">{% csrf_token %}
                 <input type="hidden" name="usuario" value="{{usuario}}">
                 <input class="texto" type="password" name="senha" id="" placeholder="Entre com a sua senha" required autofocus>
                 <div class="botoes-container">
-                    <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Retornar">
+                    <input class="botao" type="button" onclick="window.location.href = '{% url "/" %}'" value="Retornar">
                     <input class="botao" type="submit" value="Entrar">
                 </div>
             </form>
-            
         </div>
     </body>
 {% endblock 'conteudo' %}

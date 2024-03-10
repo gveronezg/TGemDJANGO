@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block 'cabecalho' %}
-    <link rel="stylesheet" href="{% static 'home/css/termos.css'%}">
+    <link rel="stylesheet" href="{% static 'usuarios/css/termos.css'%}">
 {% endblock %}
 {% block 'conteudo' %}
     <body class='body'>
         <div class="container">
-
             <figure>
                 <img src="{% static 'geral/img/myPet.png' %}">
             </figure>
@@ -14,8 +13,8 @@
             <h2 class='texto'>Para prosseguir com o seu cadastro na plataforma<br>
                 É preciso que leia os termos de uso com atenção<br>
                 Caso concorde, marque o checkbox e click em concordei</h2>
-            <p class='texto'>Termos de uso: <a href="https://policies.tinder.com/safety-and-policy/intl/pt/?lang=pt" target="_blank">Ler os termos</a></p>
-            <form class="titulo" action="{% url 'checar_termos' %}" method="POST">{% csrf_token %}
+            <p class='texto'>Termos de uso: <a href="https://policies.tinder.com/safety-and-policy/intl/pt/?lang=pt" target="_blank" class='link'>Ler os termos</a></p>
+            <form class="titulo" action="{% url 'termos' %}" method="POST">{% csrf_token %}
                 <input type="hidden" name="usuario" value="{{usuario}}">
                 <div class="check-container">
                     <div>
@@ -26,7 +25,7 @@
                     </div>
                 </div>         
                 <div class="botoes-container">
-                    <input class="botao" type="button" onclick="window.location.href = '{% url "home" %}'" value="Voltar">
+                    <input class="botao" type="button" onclick="window.location.href = '{% url "/" %}'" value="Voltar">
                     <input class="botao" type="submit" value="Concordei">
                 </div>
             </form>
@@ -37,7 +36,6 @@
                     </section>
                 {% endfor %}
             {% endif %}
-            
         </div>
     </body>
 {% endblock 'conteudo' %}

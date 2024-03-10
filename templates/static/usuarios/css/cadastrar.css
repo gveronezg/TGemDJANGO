@@ -32,6 +32,7 @@
     background-color: #00709b;
 }
 .body{
+    background-image: url("/static/usuarios/img/usuario.svg");
     background-repeat: no-repeat; /* Define que a imagem de fundo será exibida apenas uma vez. */
     background-position: center center; /* A imagem de fundo será centralizada horizontal e verticalmente */
     background-size: contain; /* Escala a imagem de fundo para caber no container, mantendo a proporção */
@@ -39,6 +40,7 @@
     display: flex; /* Define que os itens sejam centralizados horizontal e verticalmente */
     justify-content: center; /* Alinha os itens no centro horizontalmente */
     align-items: center; /* Alinha os itens no centro verticalmente */
+    color: white;
 }
 .container {
     width: 100%; /* Define a largura do container como 100% da tela */
