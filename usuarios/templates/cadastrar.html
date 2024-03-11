@@ -1,16 +1,11 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block 'cabecalho' %}
-    <link rel="stylesheet" href="{% static 'usuarios/css/cadastrar.css'%}">
-{% endblock %}
+{% extends 'base.html' %}{% load static %}
+{% block 'cabecalho' %} <link rel="stylesheet" href="{% static 'usuarios/css/cadastrar.css'%}"> {% endblock %}
+
 {% block 'conteudo' %}
-    <body class='body'>
-        <div class="container">
-            <figure>
-                <img src="{% static 'geral/img/myPet.png' %}">
-            </figure>
-            <h3 class="slogan">Estamos quase lá: {{usuario}}</h3>
-            <h2 class='texto'>Agora é preciso apenas criar sua senha de acesso a plataforma</h2>
+    <div class="container">
+        <p class="slogan">Perfil de Usuário: {{usuario}}</p>
+        <h2 class='texto'>Registre e anote sua senha para acessar a plataforma</h2>
+        <form class="form" action="{% url 'realizar_cadastro' %}" method="POST">{% csrf_token %}
             {% if messages %}
                 {% for message in messages %}
                     <section class="alert {{message.tags}}">
@@ -18,17 +13,13 @@
                     </section>
                 {% endfor %}
             {% endif %}
-            <form class="texto" action="{% url 'realizar_cadastro' %}" method="POST">{% csrf_token %}
-                <input type="hidden" name="usuario" value="{{usuario}}">
-                <h2 class='texto'>Entre abaixo com sua nova senha</h2>
-                <input class="texto" type="password" name="senha" id="senha" placeholder="Sua nova senha!" required autofocus>
-                <h2 class='texto'>Agora repita sua nova senha abaixo</h2>
-                <input class="texto" type="password" name="confirmar_senha" id="confirmar_senha" placeholder="Repita sua nova senha!" required>
-                <div class="botoes-container">
-                    <input class="botao" type="button" onclick="window.location.href = '{% url "/" %}'" value="Cancelar">
-                    <input class="botao" type="submit" value="Registrar">
-                </div>
-            </form>
-        </div>
-    </body>
+            <input class="input" type="texto" name="usuario" value="{{usuario}}" placeholder="Seu login!" required>
+            <input class="input" type="password" name="senha" id="senha" placeholder="Sua nova senha!" required autofocus>
+            <input class="input" type="password" name="confirmar_senha" id="confirmar_senha" placeholder="Repita sua nova senha!" required>
+            <div class="botoes">
+                <input class="botao" type="button" onclick="window.location.href = '{% url "/" %}'" value="Cancelar">
+                <input class="botao" type="submit" value="Registrar">
+            </div>
+        </form>
+    </div>
 {% endblock 'conteudo' %}

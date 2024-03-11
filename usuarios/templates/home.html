@@ -4,14 +4,14 @@
 {% block 'conteudo' %}
     <div class="container">
         <p class="slogan">Feito para quem ama os animais</p>
-        {% if messages %}
-            {% for message in messages %}
-                <section class="alert {{message.tags}}">
-                    {{message}}
-                </section>
-            {% endfor %}
-        {% endif %}
         <form class="form" action="{% url '/' %}" method="POST">{% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <section class="alert {{message.tags}}">
+                        {{message}}
+                    </section>
+                {% endfor %}
+            {% endif %}
             <input class="input" type="text" name="login" id="login" placeholder="Entre com o seu login" required autofocus>
             <input class="botao" type="submit" value="Entrar">
         </form>

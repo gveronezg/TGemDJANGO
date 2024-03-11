@@ -1,71 +1,18 @@
-.texto{
-    margin-bottom: 30px;
+body{
+    background-image: url("/static/usuarios/img/termos.svg");
 }
-.check-container{
-    display: flex;
-    margin-bottom: 30px;
+.container {
+    justify-content: center;
+    margin-top: 0px;
 }
 .checkbox{
+    display: flex;
+    justify-content: center;
+}
+.checkbox .check{
     height: 50px;
     width: 50px;
     transform: scale(1);
     margin-left: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-}
-.botoes-container {
-    display: flex;
-    justify-content: space-between;
-}
-.botao {
-    /* Define a fonte do botão como "Montserrat", Arial, Helvetica, sans-serif, tamanho 18px, alinhamento centralizado, com padding de 10px em todas as direções */
-    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-    text-align: center;
-    font-size: 18px;
-    padding: 10px;
-    /* Define a cor de fundo do botão como #00a8f3 */
-    background-color: #00a8f3;
-    /* Adiciona um border-radius de 5px para arredondar as bordas do botão */
-    border-radius: 5px;
-    /* Define a cor da fonte do botão como branco */
-    color: #fff;
-    /* Adiciona uma sombra embaixo do botão */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    /* Adiciona um efeito de transição ao passar o mouse em cima do botão */
-    transition: background-color 0.3s ease;
-    /* Define a largura do botão como 100% da largura disponível */
-    width: 100%;
-    /* Remove a margem inferior do último input */
-    margin-left: 20;
-    margin-right: 20;
-}
-.botao:hover {
-    /* Define a cor de fundo do botão quando o mouse passar por cima */
-    background-color: #00709b;
-}
-.body{
-    background-image: url("/static/usuarios/img/termos.svg");
-    background-repeat: no-repeat; /* Define que a imagem de fundo será exibida apenas uma vez. */
-    background-position: center center; /* A imagem de fundo será centralizada horizontal e verticalmente */
-    background-size: contain; /* Escala a imagem de fundo para caber no container, mantendo a proporção */
-    background-attachment: fixed; /* Fixa a imagem de fundo na tela, independentemente do scroll */
-    display: flex; /* Define que os itens sejam centralizados horizontal e verticalmente */
-    justify-content: center; /* Alinha os itens no centro horizontalmente */
-    align-items: center; /* Alinha os itens no centro verticalmente */
-    color: white;
-}
-.container {
-    width: 100%; /* Define a largura do container como 100% da tela */
-    height: 100%; /* Define a altura do container como 100% da tela */
-    display: flex;  /* Define o container como um container flex */
-    flex-direction: column; /* Define o container como um container flex com direção coluna */
-    align-items: center; /* Alinha os itens no centro horizontalmente */
-    justify-content: center; /* Alinha os elementos no final do container */
-    padding: 0 0px; /* Remove o padding esquerdo e direito do container */
-}
-.link{
-    color: rgb(255, 255, 0);
-    font-size: 25px;
-    text-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 1);
-    -webkit-text-stroke: 1px #000000;
-    margin-bottom: 10px;
 }

@@ -1,34 +1,14 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block 'cabecalho' %}
-    <link rel="stylesheet" href="{% static 'usuarios/css/termos.css'%}">
-{% endblock %}
+{% extends 'base.html' %}{% load static %}
+{% block 'cabecalho' %} <link rel="stylesheet" href="{% static 'usuarios/css/termos.css'%}"> {% endblock %}
+
 {% block 'conteudo' %}
-    <body class='body'>
-        <div class="container">
-            <figure>
-                <img src="{% static 'geral/img/myPet.png' %}">
-            </figure>
-            <h3 class="slogan">Bem vindo(a): {{usuario}}</h3>
-            <h2 class='texto'>Para prosseguir com o seu cadastro na plataforma<br>
-                É preciso que leia os termos de uso com atenção<br>
-                Caso concorde, marque o checkbox e click em concordei</h2>
-            <p class='texto'>Termos de uso: <a href="https://policies.tinder.com/safety-and-policy/intl/pt/?lang=pt" target="_blank" class='link'>Ler os termos</a></p>
-            <form class="titulo" action="{% url 'termos' %}" method="POST">{% csrf_token %}
-                <input type="hidden" name="usuario" value="{{usuario}}">
-                <div class="check-container">
-                    <div>
-                        <label>Eu li e chequei os termos!</label>
-                    </div>
-                    <div>
-                        <input class="checkbox" type="checkbox" name="checkTermos" id="">
-                    </div>
-                </div>         
-                <div class="botoes-container">
-                    <input class="botao" type="button" onclick="window.location.href = '{% url "/" %}'" value="Voltar">
-                    <input class="botao" type="submit" value="Concordei">
-                </div>
-            </form>
+    <div class="container">
+        <p class="slogan">Bem vindo(a): {{usuario}}</p>
+        <h2 class='texto'>Para prosseguir com o seu cadastro na plataforma<br>
+            É preciso que leia os termos de uso com atenção<br>
+            Caso concorde, marque o checkbox e click em concordei</h2>
+        <h1 class='texto'>Termos de uso: <a href="https://policies.tinder.com/safety-and-policy/intl/pt/?lang=pt" target="_blank" class='link'>Ler os termos</a></h1>
+        <form class="form" action="{% url 'termos' %}" method="POST">{% csrf_token %}
             {% if messages %}
                 {% for message in messages %}
                     <section class="alert {{message.tags}}">
@@ -36,6 +16,19 @@
                     </section>
                 {% endfor %}
             {% endif %}
-        </div>
-    </body>
+            <input type="hidden" name="usuario" value="{{usuario}}">
+            <div class="checkbox">
+                <div>
+                    <h3 class='texto'>Chequei os termos!</h3>
+                </div>
+                <div>
+                    <input class="check" type="checkbox" name="checkTermos" id="">
+                </div>
+            </div>         
+            <div class="botoes">
+                <input class="botao" type="button" onclick="window.location.href = '{% url "/" %}'" value="Voltar">
+                <input class="botao" type="submit" value="Concordei">
+            </div>
+        </form>
+    </div>
 {% endblock 'conteudo' %}
