@@ -69,3 +69,7 @@ footer {
     position: fixed; /* Fixa o elemento na posição especificada */
     bottom: 0; /* Fixa o footer no rodapé da página */
 }
+p{
+    margin-top: 0;
+    margin-bottom: 0;
+}
