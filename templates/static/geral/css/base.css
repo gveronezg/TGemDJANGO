@@ -5,6 +5,33 @@ body{
     background-size: contain; /* Escala a imagem de fundo para caber no container, mantendo a proporção */
     background-attachment: fixed; /* Fixa a imagem de fundo na tela, independentemente do scroll */
 }
+.menu {
+    width: 100%;
+    transition: 0.1s;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    padding-left: 0;
+    margin: 0;
+}
+.menu button {
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+.menu button:hover{
+    color: #00a8f3;
+    transition: 0.2s;
+}
+.user{
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 .container {
     width: 100%;
     height: 100%;
