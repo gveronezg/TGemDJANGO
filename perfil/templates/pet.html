@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block 'cabecalho' %}
-    <link rel="stylesheet" href="{% static 'perfil/css/tutor.css'%}">
+    <title>Feed MyPet</title>
+    <link rel="stylesheet" href="{% static 'perfil/css/pet.css'%}?v=2">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 {% endblock %}
 {% block 'conteudo' %}
-    <body class='body'>
+    <body>
+        <header>
+            <div class="menu">
+                <button><p href="usuario">Usuario</p></button>
+                <button><p href="tutor">Tutor</p></button>
+                <button><p href="pet">Pet</p></button>
+                <button><p href="feed">Feed</p></button>
+                <button><p href="sair">Sair</p></button>
+            </div>
+        </header>
         <div class="container">
             <h3 class="slogan">{{request.user}}</h3>
             <h3 class="titulo">Perfil do Pet</h3>
