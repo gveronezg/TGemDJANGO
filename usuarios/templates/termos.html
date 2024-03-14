@@ -4,8 +4,8 @@
 {% block 'conteudo' %}
     <div class="container">
         <p class="slogan">Bem vindo(a): {{usuario}}</p>
-        <h2 class='texto'>Para prosseguir com o seu cadastro na plataforma<br>
-            É preciso que leia os termos de uso com atenção<br>
+        <h2 class='texto'>Para prosseguir com o seu cadastro<br>
+            É preciso que leia os termos de uso<br>
             Caso concorde, marque o checkbox e click em concordei</h2>
         <h1 class='texto'>Termos de uso: <a href="https://policies.tinder.com/safety-and-policy/intl/pt/?lang=pt" target="_blank" class='link'>Ler os termos</a></h1>
         <form class="form" action="{% url 'termos' %}" method="POST">{% csrf_token %}

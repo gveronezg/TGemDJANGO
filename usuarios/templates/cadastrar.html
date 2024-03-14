@@ -11,7 +11,7 @@
     </menu>
     <p class="user">User: {{usuario}}</p>
     <div class="container">
-        <h3 class="texto">Perfil de Usuário</h3>
+        <h3 class="slogan">Perfil de Usuário</h3>
         <h2 class='texto'>Registre e anote sua senha para acessar a plataforma</h2>
         <form class="form" action="{% url 'realizar_cadastro' %}" method="POST">{% csrf_token %}
             {% if messages %}
