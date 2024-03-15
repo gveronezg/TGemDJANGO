@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.messages import constants
 from django.contrib import messages
-from .models import Tutor, Pet
+from .models import User, Tutor, Pet
 import requests
 
 def endereco(cep):
@@ -32,10 +32,17 @@ def raca(raca):
     }
     return racaPet
 
+def usuario(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+    if request.method == "GET":
+        dados_usuario = User.objects.filter(username=request.user).first()
+        if dados_usuario:
+            return render(request, 'cadastrar.html', {'usuario': dados_usuario})
+
 def tutor(request):
     if not request.user.is_authenticated:
         return redirect('/')
-    
     if request.method == "GET":
         dados_tutor = Tutor.objects.filter(user=request.user).first()
         if dados_tutor:

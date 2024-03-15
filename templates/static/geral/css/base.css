@@ -1,9 +1,12 @@
 body{
     background-color: #00a8f3; /* Cor de fundo da tela */
-    background-repeat: no-repeat; /* Define que a imagem de fundo será exibida apenas uma vez. */
-    background-position: center center; /* A imagem de fundo será centralizada horizontal e verticalmente */
-    background-size: contain; /* Escala a imagem de fundo para caber no container, mantendo a proporção */
+    background-repeat: no-repeat; /* Define que a imagem de fundo serÃ¡ exibida apenas uma vez. */
+    background-position: center center; /* A imagem de fundo serÃ¡ centralizada horizontal e verticalmente */
+    background-size: contain; /* Escala a imagem de fundo para caber no container, mantendo a proporÃ§Ã£o */
     background-attachment: fixed; /* Fixa a imagem de fundo na tela, independentemente do scroll */
+}
+.alert{
+    text-align: center;
 }
 .menu {
     width: 100%;
@@ -17,20 +20,24 @@ body{
     margin: 0;
 }
 .menu button {
-    transition: background-color 0.3s ease;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-weight: bold;
-    background: none;
-    border: none;
+    background: transparent;
     cursor: pointer;
     color: white;
+    font-family: 'Great Vibes', cursive;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-bottom: 0;
 }
 .menu button:hover{
-    color: red;
+    color: yellow;
     transition: 0.2s;
-    border: 1px solid red;
+    border: 1px solid yellow;
     border-radius: 5px;
+    background-color: #00709b;
 }
 .user{
     text-align: center;
@@ -48,8 +55,9 @@ body{
 }
 .slogan {
     font-family: 'Great Vibes', cursive;
-    font-size: 4vw;
+    font-size: clamp(40px, 4vw, 100px); /* Define um tamanho de fonte entre 20px e 4vw, escolhendo o maior */
     color: #00a8f3;
+    text-align: center;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
     margin-bottom: 1%;
 }
@@ -59,12 +67,13 @@ body{
     color: #fff;
     -webkit-text-stroke-width: 1.5px; /* Largura da borda */
     -webkit-text-stroke-color: black; /* Cor da borda */
+    margin-bottom: 0;
 }
 .form {
     display: flex;
     justify-content: center;
     flex-direction: column; /* Garante que os elementos estejam empilhados verticalmente */
-    gap: 10px; /* Define o espaçamento entre os elementos filhos */
+    gap: 10px; /* Define o espaÃ§amento entre os elementos filhos */
     width: 350px;
     margin: 10px;
     border: 1px solid #ccc;
@@ -108,15 +117,15 @@ footer {
     color: white; /* Cor do texto no footer */
     text-align: center; /* Alinhamento centralizado do texto */
     width: 100%; /* Largura total */
-    position: fixed; /* Fixa o elemento na posição especificada */
-    bottom: 0; /* Fixa o footer no rodapé da página */
+    position: fixed; /* Fixa o elemento na posiÃ§Ã£o especificada */
+    bottom: 0; /* Fixa o footer no rodapÃ© da pÃ¡gina */
 }
 p{
     margin-top: 0;
     margin-bottom: 0;
 }
 .link{
-    color: rgb(255, 0, 0);
+    color: yellow;
 }
 .alert {
     padding: 10px;

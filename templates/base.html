@@ -9,6 +9,16 @@
         {% block 'cabecalho' %} {% endblock %}
     </head>
     <body>
+        {% if request.user.is_authenticated %}
+            <menu class="menu">
+                <button onclick="window.location.href = '{% url "usuario" %}'">Usuario</button>
+                <button onclick="window.location.href = '{% url "tutor" %}'">Tutor</button>
+                <button onclick="window.location.href = '{% url "pet" %}'">Pet</button>
+                <button onclick="window.location.href = '{% url "/" %}'">Feed</button>
+                <button onclick="window.location.href = '{% url "logout" %}'">Sair</button>
+            </menu>
+            <p class="user">User: {{ request.user }}</p>
+        {% endif %}
         {% block 'conteudo' %} {% endblock %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>

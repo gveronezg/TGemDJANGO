@@ -1,26 +1,12 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block 'cabecalho' %}
-    <title>Feed MyPet</title>
-    <link rel="stylesheet" href="{% static 'perfil/css/pet.css'%}?v=2">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-{% endblock %}
+{% extends 'base.html' %}{% load static %}
+{% block 'cabecalho' %} <link rel="stylesheet" href="{% static 'perfil/css/pet.css'%}"> {% endblock %}
+<!-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
 {% block 'conteudo' %}
-    <body>
-        <header>
-            <div class="menu">
-                <button><p href="usuario">Usuario</p></button>
-                <button><p href="tutor">Tutor</p></button>
-                <button><p href="pet">Pet</p></button>
-                <button><p href="feed">Feed</p></button>
-                <button><p href="sair">Sair</p></button>
-            </div>
-        </header>
-        <div class="container">
-            <h3 class="slogan">{{request.user}}</h3>
-            <h3 class="titulo">Perfil do Pet</h3>
-            <h2 class='texto'>Para a sua melhor interação com os outros usuários.<br>
-                Mantenha sempre todos os dados do seu pet atualizados</h2>
+    <div class="container">
+        <h3 class="slogan">Perfil de Pet</h3>
+        <h2 class='texto'>Para a sua melhor interação com os outros usuários<br>
+            Mantenha sempre os dados do seu pet atualizados</h2>
+        <form class="form" action="{% url 'tutor' %}" method="POST">{% csrf_token %}
             {% if messages %}
                 {% for message in messages %}
                     <section class="alert {{message.tags}}">
@@ -28,39 +14,26 @@
                     </section>
                 {% endfor %}
             {% endif %}
-            <form class="texto" action="{% url 'tutor' %}" method="POST">{% csrf_token %}              
-                <h3 class='texto'>Nome do Pet</h3>
-                <input class="texto" type="texto" name="pet" placeholder="Nome do Pet" required value="{{pet.pet}}" autofocus>
-
-                <h3 class="texto">Fotos</h3>
-                <input class="texto" type="image" id="fotos" placeholder="Adicionar..." required value="{{ fotos }}">
-
-                <h3 class='texto'>Raca</h3>
-                <input class="texto" type="texto" name="raca" placeholder="Raça do seu Pet"  required value="{{pet.raca}}">
-
-                <h3 class="texto">Data de Vacinação:</h3>
-                <input class="texto" type="date" name="dtVaci" required value="{{ pet.dtVaci }}">
-
-                <h3 class="texto">Data de Nascimento:</h3>
-                <input class="texto" type="date" name="dtNasc" required value="{{ pet.dtNasc }}">
-
-                <h3 class="texto">Sexo</h3>
-                <select class="texto" name="sexo" required>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Feminino">Feminino</option>
-                </select> 
-
+            <input class="input" type="texto" name="pet" placeholder="Nome do Pet" required value="{{pet.pet}}" autofocus>
+            <input class="input" type="image" id="fotos" placeholder="Adicionar..." required value="{{ fotos }}">
+            <input class="input" type="texto" name="raca" placeholder="Raça do seu Pet" required value="{{pet.raca}}">
+            <h3 class="texto">Data de Vacinação</h3>
+            <input class="texto" type="date" name="dtVaci" required value="{{ pet.dtVaci }}">
+            <h3 class="texto">Data de Nascimento</h3>
+            <input class="texto" type="date" name="dtNasc" required value="{{ pet.dtNasc }}">
+            <select class="input" name="sexo" required>
+                <option value="">Selecione o sexo</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+            </select>
+            <div class="pedigre">
                 <h3 class="texto">Pedigree</h3>
-                <input class="texto" type="checkbox" name="pedigree" value="1"{% if pedigree == "1" %} checked{% endif %}>
-
-                <h3 class="texto">Observações:</h3>
-                <input class="texto" type="text" name="obs" required value="{{ pet.obs }}">
-
-                <div class="botoes-container">
-                    <input class="botao" type="button" onclick="window.location.href = '{% url "logout" %}'" value="Sair">
-                    <input class="botao" type="submit" value="Registrar">
-                </div>
-            </form>
-        </div>
-    </body>
+                <input class="check" type="checkbox" name="pedigree" value="1"{% if pedigree == "1" %} checked{% endif %}>
+            </div>
+            <input class="input" type="text" name="obs" placeholder="Informações" required value="{{ pet.obs }}">
+            <div class="botoes">
+                <input class="botao" type="submit" value="Confirmar">
+            </div>
+        </form>
+    </div>
 {% endblock 'conteudo' %}

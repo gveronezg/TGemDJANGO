@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages import constants
 from django.contrib import messages
 from django.contrib import auth
+from django.db import IntegrityError
 
 import re
 
@@ -21,7 +22,7 @@ def home(request):
             return render(request, 'logar.html', {'usuario': login})
         else:
             return render(request, 'termos.html', {'usuario': login})
-        
+
 def termos(request):
     if request.method == "GET":
         return redirect('/')
@@ -51,13 +52,25 @@ def realizando_cadastro(request):
             messages.add_message(request, constants.ERROR, 'Senha inválida. Use apenas letras, números e underscores.')
             return render(request, 'cadastrar.html', {'usuario': login})
         try:
-            User.objects.create_user(
+            update = User.objects.filter(username=request.user).first()
+            if not update:
+                User.objects.create_user(
                 username=login,
                 password=senha
-            )
+                )
+                messages.success(request, 'Usuario registrado com sucesso.')
+            else:
+                update.username = login
+                update.set_password(senha)
+                update.save()
+                messages.success(request, 'Usuario atualizado com sucesso.')
+                logout(request)
             return redirect('/')
-        except:
-            messages.add_message(request, constants.ERROR, 'Erro interno do Servidor, tente novamente!')
+        except IntegrityError:
+            messages.add_message(request, constants.ERROR, 'Erro ao atualizar o usuário. O nome de usuário já existe.')
+            return render(request, 'cadastrar.html', {'usuario': login})
+        except Exception as e:
+            messages.add_message(request, constants.ERROR, 'Erro interno do Servidor: {}'.format(str(e)))
             return render(request, 'cadastrar.html', {'usuario': login})
 
 def logar(request):

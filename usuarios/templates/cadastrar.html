@@ -2,14 +2,6 @@
 {% block 'cabecalho' %} <link rel="stylesheet" href="{% static 'usuarios/css/cadastrar.css'%}"> {% endblock %}
 
 {% block 'conteudo' %}
-    <menu class="menu">
-        <button onclick="window.location.href = '{% url "/" %}'">Usuario</button>
-        <button onclick="window.location.href = '{% url "/" %}'">Tutor</button>
-        <button onclick="window.location.href = '{% url "/" %}'">Pet</button>
-        <button onclick="window.location.href = '{% url "/" %}'">Feed</button>
-        <button onclick="window.location.href = '{% url "/" %}'">Sair</button>
-    </menu>
-    <p class="user">User: {{usuario}}</p>
     <div class="container">
         <h3 class="slogan">Perfil de Usuário</h3>
         <h2 class='texto'>Registre e anote sua senha para acessar a plataforma</h2>
@@ -21,11 +13,11 @@
                     </section>
                 {% endfor %}
             {% endif %}
-            <input class="input" type="texto" name="usuario" value="{{usuario}}" placeholder="Seu login!" required>
+            <input class="input" type="texto" name="usuario" value="{% if usuario.is_authenticated %}{{ usuario.username }}{% else %}{{ usuario }}{% endif %}" placeholder="Seu login!" required>
             <input class="input" type="password" name="senha" id="senha" placeholder="Sua nova senha!" required autofocus>
             <input class="input" type="password" name="confirmar_senha" id="confirmar_senha" placeholder="Repita sua nova senha!" required>
             <div class="botoes">
-                <input class="botao" type="button" onclick="window.location.href = '{% url "/" %}'" value="Cancelar">
+                <input class="botao" type="button" onclick="window.location.href = '{% url "logout" %}'" value="Sair">
                 <input class="botao" type="submit" value="Registrar">
             </div>
         </form>
