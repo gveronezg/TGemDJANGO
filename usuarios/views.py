@@ -4,7 +4,7 @@ from django.contrib.messages import constants
 from django.contrib import messages
 from django.contrib import auth
 from django.db import IntegrityError
-
+from django.contrib.auth import authenticate
 import re
 
 def home(request):
@@ -39,39 +39,59 @@ def realizando_cadastro(request):
     if request.method == "GET":
         return render(request, 'cadastrar.html')
     if request.method == "POST":
-        login = request.POST.get('usuario')
-        senha = request.POST.get('senha')
-        confirmar_senha = request.POST.get('confirmar_senha')
-        if not login or not re.match("^[a-zA-Z0-9_]+$", login):
-            messages.add_message(request, constants.ERROR, 'Login inválido. Use apenas letras, números e underscores.')
-            return render(request, 'cadastrar.html', {'usuario': login})
-        if not senha == confirmar_senha:
-            messages.add_message(request, constants.ERROR, 'Senhas divergentes!')
-            return render(request, 'cadastrar.html', {'usuario': login})
-        if not senha or not re.match("^[a-zA-Z0-9_]+$", senha):
-            messages.add_message(request, constants.ERROR, 'Senha inválida. Use apenas letras, números e underscores.')
-            return render(request, 'cadastrar.html', {'usuario': login})
-        try:
-            update = User.objects.filter(username=request.user).first()
-            if not update:
-                User.objects.create_user(
-                username=login,
-                password=senha
-                )
-                messages.success(request, 'Usuario registrado com sucesso.')
-            else:
-                update.username = login
-                update.set_password(senha)
-                update.save()
-                messages.success(request, 'Usuario atualizado com sucesso.')
-                logout(request)
-            return redirect('/')
-        except IntegrityError:
-            messages.add_message(request, constants.ERROR, 'Erro ao atualizar o usuário. O nome de usuário já existe.')
-            return render(request, 'cadastrar.html', {'usuario': login})
-        except Exception as e:
-            messages.add_message(request, constants.ERROR, 'Erro interno do Servidor: {}'.format(str(e)))
-            return render(request, 'cadastrar.html', {'usuario': login})
+        if "delete" in request.POST:
+            user = request.POST.get('usuario')
+            senha = request.POST.get('senha')
+            user = authenticate(username=login, password=senha)
+            try:
+                if user is not None:
+                    # Se as credenciais estiverem corretas, exclua a conta
+                    user.delete()
+                    messages.success(request, 'Conta excluída com sucesso!')
+                    return redirect('/')
+                else:
+                    messages.error(request, 'Para excluir a conta, entre com o login e senhas atuais.')
+                    return render(request, 'cadastrar.html', {'usuario': request.user})
+            except Exception as e:
+                messages.add_message(request, constants.ERROR, 'Erro interno do Servidor: {}'.format(str(e)))
+                return render(request, 'cadastrar.html', {'usuario': request.user})
+        elif "create/update" in request.POST:
+            login = request.POST.get('usuario')
+            senha = request.POST.get('senha')
+            confirmar_senha = request.POST.get('confirmar_senha')
+            if not login or not re.match("^[a-zA-Z0-9_]+$", login):
+                messages.add_message(request, constants.ERROR, 'Login inválido. Use apenas letras, números e underscores.')
+                return render(request, 'cadastrar.html', {'usuario': login})
+            if not senha == confirmar_senha:
+                messages.add_message(request, constants.ERROR, 'Senhas divergentes!')
+                return render(request, 'cadastrar.html', {'usuario': login})
+            if not senha or not re.match("^[a-zA-Z0-9_]+$", senha):
+                messages.add_message(request, constants.ERROR, 'Senha inválida. Use apenas letras, números e underscores.')
+                return render(request, 'cadastrar.html', {'usuario': login})
+            try:
+                update = User.objects.filter(username=request.user).first()
+                if not update:
+                    User.objects.create_user(
+                    username=login,
+                    password=senha
+                    )
+                    messages.success(request, 'Usuario registrado com sucesso.')
+                else:
+                    update.username = login
+                    update.set_password(senha)
+                    update.save()
+                    messages.success(request, 'Usuario atualizado com sucesso.')
+                    logout(request)
+                return redirect('/')
+            except IntegrityError:
+                messages.add_message(request, constants.ERROR, 'Erro ao atualizar o usuário. O nome de usuário já existe.')
+                return render(request, 'cadastrar.html', {'usuario': login})
+            except Exception as e:
+                messages.add_message(request, constants.ERROR, 'Erro interno do Servidor: {}'.format(str(e)))
+                return render(request, 'cadastrar.html', {'usuario': login})
+        else:
+            messages.add_message(request, constants.ERROR, 'Não entrou!')
+            return redirect('/')  # ou retorne uma mensagem de erro
 
 def logar(request):
     if request.method == "GET":

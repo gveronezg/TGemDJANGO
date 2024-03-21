@@ -6,7 +6,7 @@ from django.core.validators import RegexValidator
 cep_validator = RegexValidator(regex=r'^\d{8}$', message='CEP deve conter 8 dígitos numéricos.')
 
 class Tutor(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING) # TODO: trocar o DO_NOTHING por deletar dados
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # user é obrigatório e deleta dados relacionados
     tutor = models.CharField(max_length=100)
     celular = models.IntegerField(
         validators=[

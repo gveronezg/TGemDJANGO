@@ -87,44 +87,44 @@ def tutor(request):
 def pet(request):
     if not request.user.is_authenticated:
         return redirect('/')
-    
+
     if request.method == "GET":
         dados_pet = Pet.objects.filter(user=request.user).first()
         if dados_pet:
             return render(request, 'pet.html', {'pet': dados_pet})
         else:
-            return render(request, 'pet.html', {'pet': ('','','')})
+            return render(request, 'pet.html', {'pet': None}) #('','','')})
 
     if request.method == "POST":
-        tutor, celular, cep = (
-            request.POST.get(key) for key in ['tutor', 'celular', 'cep']
-        )
-        if endereco(cep) == False or len(cep) < 8:
-            messages.error(request, 'Cep incorreto!')
-            return redirect('/perfil/tutor')
-        if len(celular) != 11:
-            messages.error(request, 'Celular incompleto!')
-            return redirect('/perfil/tutor')
+        pet_data = {
+            'user': request.user,
+            'pet': request.POST.get('pet'),
+            'fotos': request.FILES.get('fotos', None),
+            'raca': request.POST.get('raca'),
+            'dtVaci': request.POST.get('dtVaci'),
+            'dtNasc': request.POST.get('dtNasc'),
+            'sexo': request.POST.get('sexo'),
+            'pedigree': request.POST.get('pedigree', False),
+            'obs': request.POST.get('obs', None)
+        }
+        print(pet_data)
+        # Aqui você pode adicionar validações adicionais conforme necessário
+        if not all(pet_data.values()):
+            messages.error(request, 'Por favor, preencha todos os campos.')
+            return redirect('/perfil/pet')
+        # ...
         try:
-            update = Tutor.objects.filter(user=request.user).first()
+            update = Pet.objects.filter(user=request.user).first()
             if not update:
-                Tutor.objects.create(
-                    user=request.user,
-                    tutor=tutor,
-                    celular=celular,
-                    cep=cep
-                )
-                messages.success(request, 'Tutor registrado com sucesso.')
+                Pet.objects.create(**pet_data)
+                messages.success(request, 'Dados do pet registrados com sucesso.')
             else:
-                Tutor.objects.update(
-                    user=request.user,
-                    tutor=tutor,
-                    celular=celular,
-                    cep=cep
-                )
-                messages.success(request, 'Tutor atualizado com sucesso.')
-            return redirect('/perfil/tutor')
+                for key, value in pet_data.items():
+                    setattr(update, key, value)
+                update.save()
+                messages.success(request, 'Dados do pet atualizados com sucesso.')
+                return redirect('/perfil/pet')
             
         except Exception as e:
-            messages.error(request, f'Erro ao registrar tutor: {str(e)}')
-            return redirect('/perfil/tutor')
+            messages.error(request, f'Erro ao registrar dados do pet: {str(e)}')
+            return redirect('/perfil/pet')

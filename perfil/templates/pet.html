@@ -1,12 +1,12 @@
 {% extends 'base.html' %}{% load static %}
 {% block 'cabecalho' %} <link rel="stylesheet" href="{% static 'perfil/css/pet.css'%}"> {% endblock %}
-<!-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
+
 {% block 'conteudo' %}
     <div class="container">
         <h3 class="slogan">Perfil de Pet</h3>
         <h2 class='texto'>Para a sua melhor interação com os outros usuários<br>
             Mantenha sempre os dados do seu pet atualizados</h2>
-        <form class="form" action="{% url 'tutor' %}" method="POST">{% csrf_token %}
+        <form class="form" action="{% url 'pet' %}" method="POST">{% csrf_token %}
             {% if messages %}
                 {% for message in messages %}
                     <section class="alert {{message.tags}}">

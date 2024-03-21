@@ -17,8 +17,12 @@
             <input class="input" type="password" name="senha" id="senha" placeholder="Sua nova senha!" required autofocus>
             <input class="input" type="password" name="confirmar_senha" id="confirmar_senha" placeholder="Repita sua nova senha!" required>
             <div class="botoes">
-                <input class="botao" type="button" onclick="window.location.href = '{% url "logout" %}'" value="Sair">
-                <input class="botao" type="submit" value="Registrar">
+                {% if usuario.is_authenticated %}
+                    <input class="botao" type="submit" name="delete" value="Excluir Conta">
+                {% else %}
+                    <input class="botao" type="button" onclick="window.location.href = '{% url "logout" %}'" value="Sair">
+                {% endif %}
+                <input class="botao" type="submit" name="create/update" value="Registrar">
             </div>
         </form>
     </div>
