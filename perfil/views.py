@@ -49,7 +49,6 @@ def tutor(request):
             return render(request, 'tutor.html', {'tutor': dados_tutor, 'endereco': endereco(dados_tutor.cep)})
         else:
             return render(request, 'tutor.html', {'tutor': ('','','')})
-
     if request.method == "POST":
         tutor, celular, cep = (
             request.POST.get(key) for key in ['tutor', 'celular', 'cep']
@@ -79,7 +78,6 @@ def tutor(request):
                 )
                 messages.success(request, 'Tutor atualizado com sucesso.')
             return redirect('/feed')
-            
         except Exception as e:
             messages.error(request, f'Erro ao registrar tutor: {str(e)}')
             return redirect('/perfil/tutor')
