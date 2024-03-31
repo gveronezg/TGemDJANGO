@@ -40,12 +40,10 @@ def realizando_cadastro(request):
         return render(request, 'cadastrar.html')
     if request.method == "POST":
         if "delete" in request.POST:
-            user = request.POST.get('usuario')
-            senha = request.POST.get('senha')
-            user = authenticate(username=login, password=senha)
+            usuario, senha = request.POST.get('usuario'), request.POST.get('senha')
+            user = authenticate(username=usuario, password=senha)
             try:
                 if user is not None:
-                    # Se as credenciais estiverem corretas, exclua a conta
                     user.delete()
                     messages.success(request, 'Conta excluída com sucesso!')
                     return redirect('/')
@@ -56,17 +54,16 @@ def realizando_cadastro(request):
                 messages.add_message(request, constants.ERROR, 'Erro interno do Servidor: {}'.format(str(e)))
                 return render(request, 'cadastrar.html', {'usuario': request.user})
         elif "create/update" in request.POST:
-            login = request.POST.get('usuario')
-            senha = request.POST.get('senha')
-            confirmar_senha = request.POST.get('confirmar_senha')
+            login, senha, confirmar_senha = request.POST.get('usuario'), request.POST.get('senha'), request.POST.get('confirmar_senha')
+            error_message = None
             if not login or not re.match("^[a-zA-Z0-9_]+$", login):
-                messages.add_message(request, constants.ERROR, 'Login inválido. Use apenas letras, números e underscores.')
-                return render(request, 'cadastrar.html', {'usuario': login})
-            if not senha == confirmar_senha:
-                messages.add_message(request, constants.ERROR, 'Senhas divergentes!')
-                return render(request, 'cadastrar.html', {'usuario': login})
-            if not senha or not re.match("^[a-zA-Z0-9_]+$", senha):
-                messages.add_message(request, constants.ERROR, 'Senha inválida. Use apenas letras, números e underscores.')
+                error_message = 'Login inválido. Use apenas letras, números e underscores.'
+            elif not senha == confirmar_senha:
+                error_message = 'Senhas divergentes.'
+            elif not senha or not re.match("^[a-zA-Z0-9_]+$", senha):
+                error_message = 'Senha inválida. Use apenas letras, números e underscores.'
+            if error_message:
+                messages.add_message(request, constants.ERROR, error_message)
                 return render(request, 'cadastrar.html', {'usuario': login})
             try:
                 update = User.objects.filter(username=request.user).first()
@@ -90,8 +87,8 @@ def realizando_cadastro(request):
                 messages.add_message(request, constants.ERROR, 'Erro interno do Servidor: {}'.format(str(e)))
                 return render(request, 'cadastrar.html', {'usuario': login})
         else:
-            messages.add_message(request, constants.ERROR, 'Não entrou!')
-            return redirect('/')  # ou retorne uma mensagem de erro
+            messages.add_message(request, constants.ERROR, 'Erro!')
+            return redirect('/')
 
 def logar(request):
     if request.method == "GET":

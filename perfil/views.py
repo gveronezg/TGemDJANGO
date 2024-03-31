@@ -70,12 +70,10 @@ def tutor(request):
                 )
                 messages.success(request, 'Tutor registrado com sucesso.')
             else:
-                Tutor.objects.update(
-                    user=request.user,
-                    tutor=tutor,
-                    celular=celular,
-                    cep=cep
-                )
+                update.tutor = tutor
+                update.celular = celular
+                update.cep = cep
+                update.save()
                 messages.success(request, 'Tutor atualizado com sucesso.')
             return redirect('/feed')
         except Exception as e:
