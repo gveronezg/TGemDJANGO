@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
-
 from django.core.validators import RegexValidator
 cep_validator = RegexValidator(regex=r'^\d{8}$', message='CEP deve conter 8 dígitos numéricos.')
 
@@ -18,7 +17,7 @@ class Tutor(models.Model):
     
     def __str__(self):
         return self.tutor
-    
+
 class Pet(models.Model):
     SEXO_CHOICES = (('F', 'Feminino'), ('M', 'Masculino'))
     user = models.ForeignKey(User, on_delete=models.CASCADE) # user é obrigatório e deleta dados relacionados
