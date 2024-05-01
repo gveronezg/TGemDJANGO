@@ -40,7 +40,17 @@ def realizando_cadastro(request):
         return render(request, 'cadastrar.html')
     if request.method == "POST":
         if "delete" in request.POST:
-            usuario, senha = request.POST.get('usuario'), request.POST.get('senha')
+            usuario, senha, confirmar_senha = request.POST.get('usuario'), request.POST.get('senha'), request.POST.get('confirmar_senha')
+            error_message = None
+            if not usuario or not re.match("^[a-zA-Z0-9_]+$", usuario):
+                error_message = 'Login inválido. Use apenas letras, números e underscores.'
+            elif not senha == confirmar_senha:
+                error_message = 'Senhas divergentes.'
+            elif not senha or not re.match("^[a-zA-Z0-9_]+$", senha):
+                error_message = 'Senha inválida. Use apenas letras, números e underscores.'
+            if error_message:
+                messages.add_message(request, constants.ERROR, error_message)
+                return render(request, 'cadastrar.html', {'usuario': usuario})
             user = authenticate(username=usuario, password=senha)
             try:
                 if user is not None:
