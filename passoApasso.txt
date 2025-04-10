@@ -1,3 +1,5 @@
+https://viacep.com.br/ws/14409242/json/
+
 1º abrir o vscode e abrir a pasta zera clonada do repositório gitHub!
 
 2º abra o terminal e rode alguns comandos para criar o ambiente virtual.
