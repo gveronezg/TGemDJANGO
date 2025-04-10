@@ -1,3 +1,2 @@
-ambVirt/
-
-notebk
+venv/
+db.sqlite3
